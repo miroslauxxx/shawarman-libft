@@ -8,7 +8,7 @@ TESTS_PATH = tests/
 
 OBJECTS = $(SOURCES:.c=.o)
 
-NAME = ramen-barmen-libft-tester.a 
+NAME = shawarman-libft.a 
 
 CFLAGS = -g -Wall -Wextra -Werror -I$(LIBFT_FOLDER) $(shell pkg-config --cflags glib-2.0)
 LDFLAGS = -L$(LIBFT_FOLDER) -lft -lbsd $(shell pkg-config --libs glib-2.0)

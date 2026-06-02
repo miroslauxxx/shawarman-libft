@@ -6,5 +6,6 @@
 #include "libft.h"
 #include <bsd/string.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 #endif
