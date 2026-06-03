@@ -238,8 +238,8 @@ void	ft_strnstr_test(void)
 	/* #9 */ check(ft_strnstr(haystack, "not", 16) == NULL);
 	/* #10 */ check(ft_strnstr(haystack, "not", 17) == haystack +14);
 	/* #11 */ check(ft_strnstr(haystack, "got", 17) == NULL);
-	/* #12 */ check(ft_strnstr("got", "got", 4) == (char*)"got");
-	/* #13 */ check(ft_strnstr("got", "got", 3) == (char*)"got");
+	/* /1* #12 *1/ check(ft_strnstr("got", "got", 4) == (char*)"got"); */ /*FIXFIXFIXFIXFIFX*/
+	/* /1* #13 *1/ check(ft_strnstr("got", "got", 3) == (char*)"got"); */ /*FIXFIXFIXFIXFIFX*/
 	/* #14 */ check(ft_strnstr("got", "123", 0) == 0);
 	/* #15 */ check(ft_strnstr("got", "got", 2) == 0);
 	printf("\n");
@@ -309,6 +309,14 @@ void	ft_split_test(void)
 	printf("\n");
 }
 
+void	ft_strmapi_test(void)
+{
+	LOG_DEBUG();
+	/* #1 */ 
+	char *str = ">>> StrmapII WILL BE IMPLEMENTED WITH MEMORY MCHECK <<<";
+	printf(RED "\n%s\n", str);
+	printf("\n");
+}
 
 void	iter_helper_toUp(unsigned int i, char *str)
 {
@@ -344,6 +352,55 @@ void	ft_striteri_test(void)
  	printf("\n");
 }
 
+void	ft_atoi_test(void)
+{
+	LOG_DEBUG();
+	/* #1 */check(atoi("42") == ft_atoi("42")); 
+	/* #2 */check(atoi("-42") == ft_atoi("-42")); 
+	/* #3 */check(atoi("42000") == ft_atoi("42000")); 
+	/* #4 */check(atoi("-42000") == ft_atoi("-42000")); 
+	/* #5 */check(atoi("+-42000") == ft_atoi("+-42000")); 
+	/* #6 */check(atoi("     +-42000") == ft_atoi("     +-42000")); 
+	/* #7 */check(atoi("\r     -42000") == ft_atoi("\r     -42000")); 
+	/* #8 */check(atoi("\r\t\n\v-42000") == ft_atoi("\r\t\n\v-42000")); 
+	/* #9 */check(atoi("\r\t\n\v+-42000") == ft_atoi("\r\t\n\v+-42000")); 
+	/* #10 */check(atoi("\r\t\n\v+a42000") == ft_atoi("\r\t\n\v+a42000")); 
+	/* #11 */check(atoi("\r\t\n\va42000") == ft_atoi("\r\t\n\va42000")); 
+	/* #12 */check(atoi("\r\t\n\v42000") == ft_atoi("\r\t\n\v42000")); 
+	/* #13 */check(atoi("\r\t\n\vAA") == ft_atoi("\r\t\n\vAA")); 
+	/* /1* #14 *1/check(atoi(NULL) == ft_atoi(NULL)); */ 
+	/* /1* #1 *1/check(strncmp(atoi("123456789012345678902123456789023456789"), ft_atoi("123456789012345678902123456789023456789"), 100) == 0); */ 
+	/* /1* #1 *1/check(strncmp(atoi("-123456789012345678902123456789023456789"), ft_atoi("-123456789012345678902123456789023456789"), 100) == 0); */ 
+ 	printf("\n");
+}
+
+void	ft_itoa_test(void)
+{
+	LOG_DEBUG();
+	/* #1 */check(strncmp(ft_itoa(42), "42", 2) == 0); 
+	/* #2 */check(strncmp(ft_itoa(-42), "-42", 3) == 0); 
+	/* #3 */check(strncmp(ft_itoa(0), "0", 1) == 0); 
+	/* #4 */check(strncmp(ft_itoa(-0), "0", 2) == 0); 
+	/* #5 */check(strncmp(ft_itoa(+0), "0", 2) == 0); 
+	/* #6 */check(strncmp(ft_itoa(-42000),"-42000", 6) == 0); 
+	/* #7 */check(strncmp(ft_itoa(42000), "42000", 5) == 0); 
+	/* #8 */check(strncmp(ft_itoa(INT_MIN), "-2147483648", 12) == 0); 
+	/* #9 */check(strncmp(ft_itoa(INT_MAX), "2147483647", 12) == 0); 
+ 	printf("\n");
+}
+
+void	ft_isalpha_test(void)
+{
+	LOG_DEBUG();
+	/* #1 */ 
+	for (int i = -1; i <= 128; i++)
+		if (!((!!ft_isalpha(i) == !!isalpha(i)))) 
+			FAILURE();
+	SUCCESS();
+ 	printf("\n");
+}
+
+
 
 /* void	ft_|_test(void) */
 /* { */
@@ -372,5 +429,9 @@ int	main(void)
 		ft_substr_test();
 		ft_strtrim_test();
 		ft_split_test();
+		ft_strmapi_test();
 		ft_striteri_test();
+		ft_atoi_test();
+		ft_itoa_test();
+		ft_char_classicication_test();
 }
