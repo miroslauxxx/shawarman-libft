@@ -16,20 +16,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
-/* void	check(bool success) */
-/* { */
-/* 	if (success) */
-/* 		SUCCESS(); */
-/* 	else */
-/* 		FAILURE(); */
-/* } */
-
 #define LOG_DEBUG(fmt, ...) do { \
     printf(CYAN ">>> %s(): " RESET,  __func__); \
-} while(0)
-
-#define CHECK(fmt, ...) do { \
-    printf("\033[0;32mOK: \033[0m"); \
 } while(0)
 
 #define SUCCESS(fmt, ...) do { \
@@ -37,13 +25,18 @@
 } while(0)
 
 #define FAILURE(fmt, ...) do { \
-    printf( RED "KO " RESET); \
-    return ; \
+    printf( RED "MKO " RESET); \
+   /* return ; \ */\
 } while(0)
 
-#define NL(fmt, ...) do { \
-	write(1, "\n", 1); \
-}while(0);
+#define MSUCCESS(fmt, ...) do { \
+    printf( GREEN "MOK " RESET); \
+} while(0)
+
+#define MFAILURE(fmt, ...) do { \
+    printf( RED "KO " RESET); \
+    /* return ; \ */\
+} while(0)
 
 #endif
 #endif

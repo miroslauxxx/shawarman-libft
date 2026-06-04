@@ -1,4 +1,5 @@
 #include "shawarman-libft.h"
+#include <malloc.h>
 #include "helper.h"
 
 void	check(bool success)
@@ -300,14 +301,14 @@ void	ft_strtrim_test(void)
 	printf("\n");
 }
 
-void	ft_split_test(void)
-{
-	LOG_DEBUG();
-	/* #1 */ 
-	char *str = ">>> SPLIT WILL BE IMPLEMENTED WITH MEMORY MCHECK <<<";
-	printf(RED "\n%s\n", str);
-	printf("\n");
-}
+/* void	ft_split_test(void) */
+/* { */
+/* 	LOG_DEBUG(); */
+/* 	/1* #1 *1/ */ 
+/* 	char *str = ">>> SPLIT WILL BE IMPLEMENTED WITH MEMORY MCHECK <<<"; */
+/* 	printf(RED "\n%s\n", str); */
+/* 	printf("\n"); */
+/* } */
 
 void	ft_strmapi_test(void)
 {
@@ -392,11 +393,123 @@ void	ft_itoa_test(void)
 void	ft_isalpha_test(void)
 {
 	LOG_DEBUG();
-	/* #1 */ 
+	/* #1-128 */ 
 	for (int i = -1; i <= 128; i++)
 		if (!((!!ft_isalpha(i) == !!isalpha(i)))) 
 			FAILURE();
 	SUCCESS();
+ 	printf("\n");
+}
+
+void	ft_isdigit_test(void)
+{
+	LOG_DEBUG();
+	/* #1-128 */ 
+	for (int i = -1; i <= 128; i++)
+		if (!((!!ft_isdigit(i) == !!isdigit(i)))) 
+			FAILURE();
+	SUCCESS();
+ 	printf("\n");
+}
+void	ft_isprint_test(void)
+{
+	LOG_DEBUG();
+	/* #1-128 */ 
+	for (int i = -1; i <= 128; i++)
+		if (!((!!ft_isprint(i) == !!isprint(i)))) 
+			FAILURE();
+	SUCCESS();
+ 	printf("\n");
+}
+void	ft_isalnum_test(void)
+{
+	LOG_DEBUG();
+	/* #1-128 */ 
+	for (int i = -1; i <= 128; i++)
+		if (!((!!ft_isalnum(i) == !!isalnum(i)))) 
+			FAILURE();
+	SUCCESS();
+ 	printf("\n");
+}
+void	ft_isascii_test(void)
+{
+	LOG_DEBUG();
+	/* #1-128 */ 
+	for (int i = -1; i <= 128; i++)
+		if (!((!!ft_isascii(i) == !!isascii(i)))) 
+			FAILURE();
+	SUCCESS();
+ 	printf("\n");
+}
+
+void	ft_toupper_test(void)
+{
+	LOG_DEBUG();
+	/* #97 - 122 */  
+	for (int i = 96; i <= 122; i++)
+		if (!(ft_toupper(i) == toupper(i)))
+			FAILURE();
+	SUCCESS();
+ 	printf("\n");
+}
+
+void	ft_tolower_test(void)
+{
+	LOG_DEBUG();
+	/* #1 */ 
+	for (int i = 64; i <= 90; i++)
+		if (!(ft_tolower(i) == tolower(i)))
+			FAILURE();
+	SUCCESS();
+ 	printf("\n");
+}
+
+
+void	free_matrix(char **matrix, int i)
+{
+	while(--i > 0)
+		free(matrix[i]);
+	free(matrix);
+}
+
+void	memcheck(void *arr, size_t size)
+{
+	void *arr_check = malloc(size);
+	if (malloc_usable_size(arr_check) == malloc_usable_size(arr))
+		MSUCCESS();
+	else
+		MFAILURE();
+}
+
+void	ft_split_test(void)
+{
+	LOG_DEBUG();
+	char *str = "  miroslau  x xxx 42";
+	char **matrix = ft_split(str, ' ');
+	/* #1 */ check(strncmp(matrix[0], "miroslau", 8) == 0);
+	/* #2 */ memcheck(matrix[0], strlen("miroslau") +1 );
+	/* #3 */ check(strncmp(matrix[1], "x", 1) == 0);
+	/* #4 */ memcheck(matrix[1], strlen("x") +1 );
+	/* #5 */ check(strncmp(matrix[2], "xxx", 3) == 0);
+	/* #6 */ memcheck(matrix[2], strlen("xxx") +1 );
+	/* #7 */ check(strncmp(matrix[3], "42", 2) == 0);
+	/* #8 */ memcheck(matrix[3], strlen("42") +1 );
+	/* #9 */ check(matrix[4] == 0);
+	free_matrix(matrix, 4); 
+	str = "_676767_____6767___67_6_7";
+	matrix = ft_split(str, '_');
+	/* #1 */ check(strncmp(matrix[0], "676767", 6) == 0);
+	/* #2 */ memcheck(matrix[0], strlen("676767") +1 );
+	/* #3 */ check(strncmp(matrix[1], "6767", 4) == 0);
+	/* #4 */ memcheck(matrix[1], strlen("6767") +1 );
+	/* #5 */ check(strncmp(matrix[2], "67", 2) == 0);
+	/* #6 */ memcheck(matrix[2], strlen("67") +1 );
+	/* #7 */ check(strncmp(matrix[3], "6", 1) == 0);
+	/* #8 */ memcheck(matrix[3], strlen("6") +1 );
+	/* #9 */ check(strncmp(matrix[4], "7", 1) == 0);
+	/* #10 */ memcheck(matrix[4], strlen("7") +1 );
+	/* #11 */ check(matrix[5] == 0);
+	/* #13 */
  	printf("\n");
 }
 
@@ -433,5 +546,12 @@ int	main(void)
 		ft_striteri_test();
 		ft_atoi_test();
 		ft_itoa_test();
-		ft_char_classicication_test();
+		ft_isalpha_test();
+		ft_isalnum_test();
+		ft_isascii_test();
+		ft_isdigit_test();
+		ft_isprint_test();
+		ft_toupper_test();
+		ft_tolower_test();
+		ft_split_test();
 }
