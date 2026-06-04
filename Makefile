@@ -10,7 +10,7 @@ OBJECTS = $(SOURCES:.c=.o)
 
 NAME = shawarman-libft.a 
 
-CFLAGS = -lc -g -Wall -Wextra -Werror -I$(LIBFT_FOLDER) $(shell pkg-config --cflags glib-2.0)
+CFLAGS = -g -Wall -Wextra -Werror -I$(LIBFT_FOLDER) $(shell pkg-config --cflags glib-2.0)
 LDFLAGS = -L$(LIBFT_FOLDER) -lft -lbsd $(shell pkg-config --libs glib-2.0)
 
 all: $(NAME)

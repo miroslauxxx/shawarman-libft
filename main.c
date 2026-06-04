@@ -5,10 +5,28 @@
 void	check(bool success)
 {
 		if (success)
-				SUCCESS();
+				SUCCESS("OK ");
 		else
-				FAILURE();
+				FAILURE("KO ");
 }
+
+void	pluscheck(bool success)
+{
+		if (success)
+				SUCCESS("wOK ");
+		else
+				FAILURE("wKO ");
+}
+
+void	memcheck(void *arr, size_t size)
+{
+	void *arr_check = malloc(size);
+	if (malloc_usable_size(arr_check) == malloc_usable_size(arr))
+		SUCCESS("mOK ");
+	else
+		FAILURE("mKO ");
+}
+
 
 void	ft_memcpy_test(void)
 {
@@ -301,40 +319,50 @@ void	ft_strtrim_test(void)
 	printf("\n");
 }
 
-/* void	ft_split_test(void) */
-/* { */
-/* 	LOG_DEBUG(); */
-/* 	/1* #1 *1/ */ 
-/* 	char *str = ">>> SPLIT WILL BE IMPLEMENTED WITH MEMORY MCHECK <<<"; */
-/* 	printf(RED "\n%s\n", str); */
-/* 	printf("\n"); */
-/* } */
-
-void	ft_strmapi_test(void)
-{
-	LOG_DEBUG();
-	/* #1 */ 
-	char *str = ">>> StrmapII WILL BE IMPLEMENTED WITH MEMORY MCHECK <<<";
-	printf(RED "\n%s\n", str);
-	printf("\n");
-}
-
 void	iter_helper_toUp(unsigned int i, char *str)
 {
 	((void) i);
-	if (*str >= 97 && *str <= 122)
-		*str -= 32;
+	*str = ft_toupper(*str);
 }
 
 void	iter_helper_toLower(unsigned int i, char *str)
 {
 	((void) i);
-	if (*str >= 65 && *str <= 90)
-		*str += 32;
-	else
-		return ;
+	*str = ft_tolower(*str);
 }
 
+char	mapiter_helper_toUp(unsigned int i, char str)
+{
+	((void) i);
+	return (ft_toupper(str));
+}
+
+char	mapiter_helper_toLower(unsigned int i, char str)
+{
+	((void) i);
+	return (ft_tolower(str));
+}
+
+
+void	ft_strmapi_test(void)
+{
+	LOG_DEBUG();
+	char empty[] = ""; 
+	char src[] = "DeaTh Ei$tS, Not @$ thE 0pp0$ite but as a part of Life"; 
+	char str1[] = "DeaTh Ei$tS, Not @$ thE 0pp0$ite but as a part of Life"; 
+	char strUpper[] = "DEATH EI$TS, NOT @$ THE 0PP0$ITE BUT AS A PART OF LIFE"; 
+	char strLower[] = "death ei$ts, not @$ the 0pp0$ite but as a part of life"; 
+	char *str = ft_strmapi(src, mapiter_helper_toLower);
+	/* #1 */ check(strncmp(str, strLower, sizeof(strLower)) == 0);
+	/* #2 */ memcheck((void *)str, strlen(strLower) +1);
+	str = ft_strmapi(str1, mapiter_helper_toUp);
+	/* #3 */ check(strncmp(str, strUpper, sizeof(strUpper)) == 0);
+	/* #4 */ memcheck(str, strlen(strUpper) +1);
+	str = ft_strmapi(empty, mapiter_helper_toUp);
+	/* #5 */ check(strncmp(str, empty, sizeof(empty)) == 0);
+	/* #6 */ memcheck(str, 1);
+	printf("\n");
+}
 
 void	ft_striteri_test(void)
 {
@@ -369,9 +397,8 @@ void	ft_atoi_test(void)
 	/* #11 */check(atoi("\r\t\n\va42000") == ft_atoi("\r\t\n\va42000")); 
 	/* #12 */check(atoi("\r\t\n\v42000") == ft_atoi("\r\t\n\v42000")); 
 	/* #13 */check(atoi("\r\t\n\vAA") == ft_atoi("\r\t\n\vAA")); 
-	/* /1* #14 *1/check(atoi(NULL) == ft_atoi(NULL)); */ 
-	/* /1* #1 *1/check(strncmp(atoi("123456789012345678902123456789023456789"), ft_atoi("123456789012345678902123456789023456789"), 100) == 0); */ 
-	/* /1* #1 *1/check(strncmp(atoi("-123456789012345678902123456789023456789"), ft_atoi("-123456789012345678902123456789023456789"), 100) == 0); */ 
+	/* #14 */pluscheck(atoi("123456789012345678902123456789023456789") == ft_atoi("123456789012345678902123456789023456789")); 
+	/* #15 */pluscheck(atoi("-123456789012345678902123456789023456789") == ft_atoi("-123456789012345678902123456789023456789")); 
  	printf("\n");
 }
 
@@ -390,14 +417,33 @@ void	ft_itoa_test(void)
  	printf("\n");
 }
 
+
+/* void ft_classification_test(void) */
+/* { */
+/* 	int (*ft_functions[])(int) = {ft_isalpha, ft_isdigit, ft_isprint, ft_isalnum, ft_isascii, NULL }; */
+/* 	int (*functions[])(int) = {isalpha, isdigit, isprint, isalnum, isascii, NULL }; */
+
+/* 	for (int i = -1; ft_functions[i] != NULL; i++) */
+/* 	{ */
+/* 		for(int j = -1; j <= 128; j++) */
+/* 		{ */
+/* 			if(!!ft_functions[i](j) == !!functions[i](j)) */
+/* 				FAILURE("KO "); */
+/* 		} */
+/* 		SUCCESS("OK "); */
+/* 		printf("\n"); */
+/* 	} */
+/* } */
+
+
 void	ft_isalpha_test(void)
 {
 	LOG_DEBUG();
 	/* #1-128 */ 
 	for (int i = -1; i <= 128; i++)
 		if (!((!!ft_isalpha(i) == !!isalpha(i)))) 
-			FAILURE();
-	SUCCESS();
+			FAILURE("KO ");
+	SUCCESS("OK ");
  	printf("\n");
 }
 
@@ -407,8 +453,8 @@ void	ft_isdigit_test(void)
 	/* #1-128 */ 
 	for (int i = -1; i <= 128; i++)
 		if (!((!!ft_isdigit(i) == !!isdigit(i)))) 
-			FAILURE();
-	SUCCESS();
+			FAILURE("KO ");
+	SUCCESS("OK ");
  	printf("\n");
 }
 void	ft_isprint_test(void)
@@ -417,8 +463,8 @@ void	ft_isprint_test(void)
 	/* #1-128 */ 
 	for (int i = -1; i <= 128; i++)
 		if (!((!!ft_isprint(i) == !!isprint(i)))) 
-			FAILURE();
-	SUCCESS();
+			FAILURE("KO ");
+	SUCCESS("OK ");
  	printf("\n");
 }
 void	ft_isalnum_test(void)
@@ -427,8 +473,8 @@ void	ft_isalnum_test(void)
 	/* #1-128 */ 
 	for (int i = -1; i <= 128; i++)
 		if (!((!!ft_isalnum(i) == !!isalnum(i)))) 
-			FAILURE();
-	SUCCESS();
+			FAILURE("KO ");
+	SUCCESS("OK ");
  	printf("\n");
 }
 void	ft_isascii_test(void)
@@ -437,8 +483,8 @@ void	ft_isascii_test(void)
 	/* #1-128 */ 
 	for (int i = -1; i <= 128; i++)
 		if (!((!!ft_isascii(i) == !!isascii(i)))) 
-			FAILURE();
-	SUCCESS();
+			FAILURE("KO ");
+	SUCCESS("OK ");
  	printf("\n");
 }
 
@@ -448,8 +494,8 @@ void	ft_toupper_test(void)
 	/* #97 - 122 */  
 	for (int i = 96; i <= 122; i++)
 		if (!(ft_toupper(i) == toupper(i)))
-			FAILURE();
-	SUCCESS();
+			FAILURE("KO ");
+	SUCCESS("OK ");
  	printf("\n");
 }
 
@@ -459,8 +505,8 @@ void	ft_tolower_test(void)
 	/* #1 */ 
 	for (int i = 64; i <= 90; i++)
 		if (!(ft_tolower(i) == tolower(i)))
-			FAILURE();
-	SUCCESS();
+			FAILURE("KO ");
+	SUCCESS("OK ");
  	printf("\n");
 }
 
@@ -470,15 +516,6 @@ void	free_matrix(char **matrix, int i)
 	while(--i > 0)
 		free(matrix[i]);
 	free(matrix);
-}
-
-void	memcheck(void *arr, size_t size)
-{
-	void *arr_check = malloc(size);
-	if (malloc_usable_size(arr_check) == malloc_usable_size(arr))
-		MSUCCESS();
-	else
-		MFAILURE();
 }
 
 void	ft_split_test(void)
@@ -509,11 +546,134 @@ void	ft_split_test(void)
 	/* #9 */ check(strncmp(matrix[4], "7", 1) == 0);
 	/* #10 */ memcheck(matrix[4], strlen("7") +1 );
 	/* #11 */ check(matrix[5] == 0);
-	/* #13 */
+	free_matrix(matrix, 4); 
+	str = ";;;;;";
+	matrix = ft_split(str, ';');
+	/* #12 */ check(matrix[0] == NULL);
+	free_matrix(matrix, 1); 
+ 	printf("\n");
+}
+
+void	ft_putchar_fd_test(void)
+{
+	LOG_DEBUG();
+	int fd = open("miroslaux", O_RDWR | O_CREAT);
+	ft_putchar_fd('x', fd);
+	ft_putchar_fd('X', fd);
+	ft_putchar_fd('4', fd);
+	ft_putchar_fd('@', fd);
+	lseek(fd, SEEK_SET, 0);
+	char buf[10] = {0}; 
+	read(fd, buf, 5);
+	/* #1 */ check(strcmp(buf, "xX4@") == 0); 
+	close(fd);
+	unlink("./miroslaux");
+ 	printf("\n");
+}
+
+void	ft_putstr_fd_test(void)
+{
+	LOG_DEBUG();
+	int fd = open("miroslaux", O_RDWR | O_CREAT);
+	ft_putstr_fd("miroslaux ", fd);
+ 	ft_putstr_fd("from ", fd);
+	ft_putstr_fd("42 ", fd);
+	ft_putstr_fd("Berlin", fd);
+	lseek(fd, SEEK_SET, 0);
+	char buf[100] = {0};
+	read(fd, buf, 25);
+	/* #1 */ check(strcmp(buf, "miroslaux from 42 Berlin") == 0);
+	close(fd);
+	unlink("./miroslaux");
+
+	fd = open("miroslaux", O_RDWR | O_CREAT);
+	ft_putstr_fd("", fd);
+	lseek(fd, SEEK_SET, 0);
+	char buf1[2];
+	read(fd, buf1, 2);
+	/* #2 */ check(strcmp(buf1, "") == 0);
+	close(fd);
+	unlink("./miroslaux");
+ 	printf("\n");
+}
+
+void	ft_putnbr_test(void)
+{
+	LOG_DEBUG();
+	int fd = open("miroslaux", O_RDWR | O_CREAT);
+	ft_putnbr_fd(INT_MAX, fd);
+	lseek(fd, SEEK_SET, 0);
+	char buf[100] = {0};
+	read(fd, buf, 10);
+	/* #1 */ check(strcmp(buf, "2147483647") == 0);	
+	close(fd);
+	unlink("./miroslaux");
+
+	fd = open("miroslaux", O_RDWR | O_CREAT);
+	ft_putnbr_fd(INT_MIN, fd);
+	lseek(fd, SEEK_SET, 0);
+	char buf1[100] = {0};
+	read(fd, buf1, 11);
+	/* #2 */ check(strcmp(buf1, "-2147483648") == 0);
+	close(fd);
+	unlink("./miroslaux");
  	printf("\n");
 }
 
 
+
+void	ft_putendl_test(void)
+{
+	LOG_DEBUG();
+	int fd = open("miroslaux", O_RDWR | O_CREAT);
+	ft_putendl_fd("miroslaux", fd);
+	lseek(fd, SEEK_SET, 0);
+	char buf[25] = {0};
+	read(fd, buf, 25);
+	/* #1 */ check(strcmp(buf, "miroslaux\n") == 0);
+	close(fd);
+	unlink("./miroslaux");
+
+	fd = open("miroslaux", O_RDWR | O_CREAT);
+	ft_putendl_fd("g", fd);
+	lseek(fd, SEEK_SET, 0);
+	char buf1[3] = {0};
+	read(fd, buf1, 3);
+	/* #2 */ check(strcmp(buf1, "g\n") == 0);
+	close(fd);
+	unlink("./miroslaux");
+ 	printf("\n");
+}
+
+void	ft_lstnew_test(void)
+{
+	LOG_DEBUG();
+	long ft = 42;
+	t_list *lst = ft_lstnew((void *)ft);
+	/* #1 */ check(ft == (long)lst->content); 
+	/* #2 */ check(lst->next == NULL); 
+	free(lst);
+ 	printf("\n");
+}
+
+void	ft_lstadd_front_test(void)
+{
+	LOG_DEBUG();
+	long ft = 42;
+	char *str_ft = "forty two";
+	/* char *str_m = "miroslaux"; */
+
+	t_list *lst = ft_lstnew((void *)ft);
+	t_list *lst_new = ft_lstnew((void *)str_ft);
+	/* t_list *lst_last = ft_lstnew((void *)str_m); */
+
+	ft_lstadd_front(&lst, lst_new);
+	check(strcmp(str_ft, (char *)lst->content) == 0);
+	ft_lstadd_front(&lst, lst_new);
+	printf("%ld", (long)lst->next->content);
+	check(ft == (long)lst->next->content);
+ 	printf("\n");
+}
 
 /* void	ft_|_test(void) */
 /* { */
@@ -553,5 +713,11 @@ int	main(void)
 		ft_isprint_test();
 		ft_toupper_test();
 		ft_tolower_test();
-		ft_split_test();
+		ft_putchar_fd_test();
+		ft_putstr_fd_test();
+		ft_putnbr_test();
+		ft_putendl_test();
+		/* ft_classification_test(); */
+		ft_lstnew_test();
+		ft_lstadd_front_test();
 }
