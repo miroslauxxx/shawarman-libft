@@ -6,6 +6,7 @@ void    ft_bzero_test(void)
         char arrA[10];
         memset(arrA, 'A', 10);
         LOG_DEBUG();
+		ft_bzero(NULL, 0);
         ft_bzero(arrA, 0);
         /* #1 */ check(arrA[5] == 'A' && arrA[9] == 'A');
         ft_bzero(arrA, 10);

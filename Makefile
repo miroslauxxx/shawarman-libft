@@ -3,7 +3,7 @@ SOURCES = main.c
 OBJS        = $(SRCS:.c=.o)
 
 LIBFT_NAME 		= libft.a
-LIBFT_PATH 		= libft/
+LIBFT_PATH 		= ../libft/
 TESTS_PATH 		= tests/
 UTILS_PATH		= utils/
 

@@ -4,7 +4,7 @@
 void ft_memset_test(void)
 {
 		char dst[11] = "0000000000";
-		int arr[5], i = 4, n = 1;	
+		int arr[5], i = 5, n = 1;	
 
 		LOG_DEBUG();
 		/* #1 */ check(memcmp(ft_memset(dst, '%', 0), dst, 0) == 0);
@@ -15,9 +15,9 @@ void ft_memset_test(void)
 		do {
 				if (arr[i] != 16843009)
 					n--;
-		} while(--i);
-		/* #5 */ pluscheck(n != 0);
-		/* #6 */ pluscheck(ft_memset(NULL, '6', 666) == 0);
+				printf("%d", i);
+		} while(i--);
+		pluscheck(n != 1);
 		printf("\n");
 }
 

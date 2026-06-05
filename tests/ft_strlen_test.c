@@ -14,6 +14,8 @@ void    ft_strlen_test(void)
     /* #4 */ check(ft_strlen(str) == strlen(str));
     str = "";
     /* #5 */ check(ft_strlen(str) == strlen(str));
+	const char *n = NULL;
+    /* #6 */ pluscheck(ft_strlen(n) == 0);
     printf("\n");
 }
 
