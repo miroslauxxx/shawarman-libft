@@ -1,5 +1,5 @@
 #include "shawarman-libft.h"
-#include "util.h"
+#include "utils.h"
 
 void    ft_memcpy_test(void)
 {
@@ -12,4 +12,9 @@ void    ft_memcpy_test(void)
 		/* #3 */ check(memcmp(ft_memcpy(dst, src, 5), dst, 5) == 0);
 		/* #4 */ check(memcmp(ft_memcpy(dst, src, 11), dst, 11) == 0);
 		printf("\n");
+}
+
+int	main(void)
+{
+	ft_memcpy_test();
 }
