@@ -4,7 +4,7 @@
 void    ft_putendl_fd_test(void)
 {
     LOG_DEBUG();
-    int fd = open("miroslaux", O_RDWR | O_CREAT);
+    int fd = open("miroslaux", O_RDWR | O_CREAT, 0644);
     ft_putendl_fd("miroslaux", fd);
     lseek(fd, SEEK_SET, 0);
     char buf[25] = {0};
@@ -13,7 +13,7 @@ void    ft_putendl_fd_test(void)
     close(fd);
     unlink("./miroslaux");
 
-    fd = open("miroslaux", O_RDWR | O_CREAT);
+    fd = open("miroslaux", O_RDWR | O_CREAT, 0644);
     ft_putendl_fd("g", fd);
     lseek(fd, SEEK_SET, 0);
     char buf1[3] = {0};

@@ -4,7 +4,7 @@
 void    ft_putstr_fd_test(void)
 {
     LOG_DEBUG();
-    int fd = open("miroslaux", O_RDWR | O_CREAT);
+    int fd = open("miroslaux", O_RDWR | O_CREAT, 0644);
     ft_putstr_fd("miroslaux ", fd);
     ft_putstr_fd("from ", fd);
     ft_putstr_fd("42 ", fd);
@@ -16,10 +16,10 @@ void    ft_putstr_fd_test(void)
     close(fd);
     unlink("./miroslaux");
 
-    fd = open("miroslaux", O_RDWR | O_CREAT);
+    fd = open("miroslaux", O_RDWR | O_CREAT, 0644);
     ft_putstr_fd("", fd);
     lseek(fd, SEEK_SET, 0);
-    char buf1[2];
+    char buf1[2] = {0};
     read(fd, buf1, 2);
     /* #2 */ check(strcmp(buf1, "") == 0);
     close(fd);
