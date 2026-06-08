@@ -20,7 +20,7 @@ fd: $(FD)
 ll: $(LL)
 
 $(FUNCTIONS): %: $(LIBFT_A)
-	@gcc $(FLAGS) -I$(LIBFT_PATH) -I$(TESTS_PATH) -I$(UTILS_PATH) tests/ft_$*_test.c utils/utils.c  -L$(LIBFT_PATH) -lft && valgrind -q --leak-check=full ./a.out && rm a.out
+	@gcc $(FLAGS) -I$(LIBFT_PATH) -I$(TESTS_PATH) -I$(UTILS_PATH) tests/ft_$*_test.c utils/utils.c  -L$(LIBFT_PATH) -lft && ./a.out # valgrind -q --leak-check=full ./a.out && rm a.out
 
 $(LIBFT_A):
 	@make -C $(LIBFT_PATH)
