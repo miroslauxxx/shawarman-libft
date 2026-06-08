@@ -8,7 +8,7 @@ LIBFT_A     	= $(LIBFT_PATH)$(LIBFT_NAME)
 FUNCTIONS		= $(MEM) $(CCC) $(STR) $(FD) $(LL)
 MEM				= memset bzero memcpy memmove memchr memcmp calloc
 CCC				= isalpha isdigit isalnum isascii isprint toupper tolower atoi itoa
-STR				= strlen strrchr strchr strnstr strdup substr strjoin strtrim split strmapi # strlcat
+STR				= strlen strrchr strchr strnstr strdup substr strjoin strtrim split strmapi strlcat
 FD				= putchar_fd putstr_fd putendl_fd putnbr_fd
 LL				= lstnew lstadd_front lstsize lstlast lstadd_back lstdelone lstclear lstiter lstmap
 
