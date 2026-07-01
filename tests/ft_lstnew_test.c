@@ -8,7 +8,7 @@ void    ft_lstnew_test(void)
     t_list *lst = ft_lstnew((void *)ft);
     /* #1 */ check(ft == (long)lst->content);
     /* #2 */ check(lst->next == NULL);
-    free(lst);
+    free_list(lst);
     printf("\n");
 }
 

@@ -27,3 +27,14 @@ void    memcheck(void *arr, size_t size)
 		return ;
 }
 
+void	free_list(t_list *head)
+{
+	t_list	*temp;
+
+	while(head != NULL)
+	{	
+		temp = head;
+		head = head->next;
+		free(temp);
+	}
+}

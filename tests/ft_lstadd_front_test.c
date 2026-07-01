@@ -19,7 +19,7 @@ void    ft_lstadd_front_test(void)
     check(strcmp(str_m, (char *)lst->next->content) == 0);
     check(strcmp(str_ft, (char *)lst->next->next->content) == 0);
 
-	ft_lstclear(&lst, free);
+	free_list(lst);
     printf("\n");
 }
 
