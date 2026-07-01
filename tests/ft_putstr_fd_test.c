@@ -19,11 +19,23 @@ void    ft_putstr_fd_test(void)
     fd = open("miroslaux", O_RDWR | O_CREAT, 0644);
     ft_putstr_fd("", fd);
     lseek(fd, SEEK_SET, 0);
-    char buf1[2] = {0};
-    read(fd, buf1, 2);
-    /* #2 */ check(strcmp(buf1, "") == 0);
+    memset(buf, 0, sizeof(buf));
+    read(fd, buf, 2);
+    /* #2 */ check(strcmp(buf, "") == 0);
     close(fd);
     unlink("./miroslaux");
+
+	int pipefd[2];
+	if (pipe(pipefd) < 0)
+		return ;
+	ft_putstr_fd("hi++ ysup!", pipefd[1]);
+	close(pipefd[1]);
+	memset(buf, 0, sizeof(buf));
+	int bytes_read = read(pipefd[0], buf, sizeof(buf) -1);
+	close(pipefd[0]);
+	if (bytes_read < 0)
+		return ;
+	/* #3 */ check(strcmp("hi++ ysup!", buf) == 0);
     printf("\n");
 }
 
